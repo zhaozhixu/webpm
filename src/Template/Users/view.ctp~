@@ -1,0 +1,143 @@
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?> </li>
+        <!-- <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li> -->
+        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
+        <!-- <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?> </li>
+             <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?> </li>
+             <li><?= $this->Html->link(__('List Versions'), ['controller' => 'Versions', 'action' => 'index']) ?> </li>
+             <li><?= $this->Html->link(__('New Version'), ['controller' => 'Versions', 'action' => 'add']) ?> </li>
+             <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?> </li>
+             <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?> </li> -->
+    </ul>
+</nav>
+<div class="users view large-9 medium-8 columns content">
+    <h3><?= h($user->username) ?></h3>
+    <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Username') ?></th>
+            <td><?= h($user->username) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Email') ?></th>
+            <td><?= h($user->email) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Role') ?></th>
+            <td><?= h($user->role) ?></td>
+        </tr>
+        <!-- <tr>
+             <th scope="row"><?= __('Password') ?></th>
+             <td><?= h($user->password) ?></td>
+             </tr> -->
+        <!-- <tr>
+             <th scope="row"><?= __('Id') ?></th>
+             <td><?= $this->Number->format($user->id) ?></td>
+             </tr> -->
+        <tr>
+            <th scope="row"><?= __('Created') ?></th>
+            <td><?= h($user->created) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Modified') ?></th>
+            <td><?= h($user->modified) ?></td>
+        </tr>
+    </table>
+    <div class="related">
+        <h4><?= __('Related Notices') ?></h4>
+        <?php if (!empty($user->notices)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <!-- <th scope="col"><?= __('Id') ?></th> -->
+                <th scope="col"><?= __('Title') ?></th>
+                <!-- <th scope="col"><?= __('Description') ?></th> -->
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <!-- <th scope="col"><?= __('User Id') ?></th> -->
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($user->notices as $notices): ?>
+            <tr>
+                <!-- <td><?= h($notices->id) ?></td> -->
+                <td><?= h($notices->title) ?></td>
+                <!-- <td><?= h($notices->description) ?></td> -->
+                <td><?= h($notices->created) ?></td>
+                <td><?= h($notices->modified) ?></td>
+                <!-- <td><?= h($notices->user_id) ?></td> -->
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Notices', 'action' => 'view', $notices->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Notices', 'action' => 'edit', $notices->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Notices', 'action' => 'delete', $notices->id], ['confirm' => __('Are you sure you want to delete # {0}?', $notices->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Versions') ?></h4>
+        <?php if (!empty($user->versions)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <!-- <th scope="col"><?= __('Id') ?></th> -->
+                <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('Url') ?></th>
+                <!-- <th scope="col"><?= __('Description') ?></th> -->
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <!-- <th scope="col"><?= __('User Id') ?></th> -->
+                <th scope="col"><?= __('Product') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($user->versions as $versions): ?>
+            <tr>
+                <!-- <td><?= h($versions->id) ?></td> -->
+                <td><?= h($versions->name) ?></td>
+                <td><?= $this->html->link(h($versions->url), 'http://'.h($versions->url)) ?></td>
+                <!-- <td><?= h($versions->description) ?></td> -->
+                <td><?= h($versions->created) ?></td>
+                <td><?= h($versions->modified) ?></td>
+                <!-- <td><?= h($versions->user_id) ?></td> -->
+                <td><?= h($versions->product->name) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Versions', 'action' => 'view', $versions->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Versions', 'action' => 'edit', $versions->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Versions', 'action' => 'delete', $versions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $versions->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Projects') ?></h4>
+        <?php if (!empty($user->projects)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <!-- <th scope="col"><?= __('Id') ?></th> -->
+                <th scope="col"><?= __('Title') ?></th>
+                <!-- <th scope="col"><?= __('Description') ?></th> -->
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($user->projects as $projects): ?>
+            <tr>
+                <!-- <td><?= h($projects->id) ?></td> -->
+                <td><?= h($projects->title) ?></td>
+                <!-- <td><?= h($projects->description) ?></td> -->
+                <td><?= h($projects->created) ?></td>
+                <td><?= h($projects->modified) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Projects', 'action' => 'view', $projects->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Projects', 'action' => 'edit', $projects->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Projects', 'action' => 'delete', $projects->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projects->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+</div>

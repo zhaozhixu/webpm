@@ -1,0 +1,95 @@
+CREATE TABLE users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+email VARCHAR(255) NOT NULL,
+username VARCHAR(50) NOT NULL,
+password VARCHAR(255) NOT NULL,
+created DATETIME DEFAULT NULL,
+modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE tasks (
+id INT AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(50) NOT NULL,
+description TEXT,
+type_id INT NOT NULL,
+priority_id INT NOT NULL,
+state_id INT NOT NULL,
+start DATETIME DEFAULT NOW(),
+end DATETIME DEFAULT NULL,
+modified DATETIME DEFAULT NULL,
+assigner_id INT NOT NULL,
+receiver_id INT,
+project_id INT NOT NULL,
+product_id INT,
+FOREIGN KEY (assigner_id) REFERENCES users(id),
+FOREIGN KEY (receiver_id) REFERENCES users(id),
+FOREIGN KEY (project_id) REFERENCES projects(id),
+FOREIGN KEY (product_id) REFERENCES products(id),
+FOREIGN KEY (type_id) REFERENCES types(id),
+FOREIGN KEY (priority_id) REFERENCES priorities(id),
+FOREIGN KEY (state_id) REFERENCES states(id)
+);
+
+CREATE TABLE projects (
+id INT AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(50) NOT NULL,
+description TEXT,
+created DATETIME DEFAULT NULL,
+modified DATETIME DEFAULT NULL
+);
+
+CREATE TABLE projects_users(
+project_id INT NOT NULL,
+user_id INT NOT NULL,
+PRIMARY KEY (project_id, user_id),
+FOREIGN KEY (project_id) REFERENCES projects(id),
+FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE products(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+description TEXT,
+created DATETIME DEFAULT NULL,
+modified DATETIME DEFAULT NULL,
+project_id INT NOT NULL,
+FOREIGN KEY (project_id) REFERENCES projects(id)
+);
+
+CREATE TABLE notices(
+id INT AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(50) NOT NULL,
+description TEXT,
+created DATETIME DEFAULT NULL,
+modified DATETIME DEFAULT NULL,
+user_id INT NOT NULL,
+FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE versions(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+url TEXT,
+description TEXT,
+created DATETIME DEFAULT NULL,
+modified DATETIME DEFAULT NULL,
+user_id INT NOT NULL,
+product_id INT NOT NULL,
+FOREIGN KEY (user_id) REFERENCES users(id),
+FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+CREATE TABLE types (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE priorities (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE states (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(20) NOT NULL
+);
